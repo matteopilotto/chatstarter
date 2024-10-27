@@ -12,6 +12,7 @@ export const create = mutation({
     sender: v.string(),
     content: v.string(),
   },
+
   handler: async (ctx, { sender, content }) => {
     await ctx.db.insert("messages", { sender, content });
   },
