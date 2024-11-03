@@ -44,8 +44,8 @@ export function NewDirectMessage() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <SidebarGroupAction>
-          <PlusIcon />
           <span className="sr-only">New Direct Message</span>
+          <PlusIcon />
         </SidebarGroupAction>
       </DialogTrigger>
       <DialogContent>
@@ -60,9 +60,11 @@ export function NewDirectMessage() {
             <Label htmlFor="username">Username</Label>
             <Input id="username" type="text" />
           </div>
-          <DialogFooter>
-            <Button>Start Direct Message</Button>
-          </DialogFooter>
+          <div>
+            <DialogFooter className="flex">
+              <Button className="flex-1">Start Direct Message</Button>
+            </DialogFooter>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

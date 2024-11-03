@@ -37,7 +37,7 @@ import { usePathname } from "next/navigation";
 export function DashboardSidebar() {
   const user = useQuery(api.functions.user.get);
   // const directMessages = useTestDirectMessages();
-  const directMessages = useQuery(api.functions.dm.list)
+  const directMessages = useQuery(api.functions.dm.list);
   const pathname = usePathname();
 
   if (!user) {
@@ -59,29 +59,34 @@ export function DashboardSidebar() {
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Direct Messages</SidebarGroupLabel>
-            <NewDirectMessage />
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {directMessages?.map((directMessage) => (
-                  <SidebarMenuItem key={directMessage._id}>
-                    <SidebarMenuButton asChild isActive={pathname === `/dms/${directMessage._id}`}>
-                      <Link href={`/dms/${directMessage._id}`}>
-                        <Avatar className="size-6">
-                          <AvatarImage src={directMessage.user.image} />
-                          <AvatarFallback>
-                            {directMessage.user.username[0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        <p className="font-medium">{directMessage.user.username}</p>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Direct Messages</SidebarGroupLabel>
+          <NewDirectMessage />
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {directMessages?.map((directMessage) => (
+                <SidebarMenuItem key={directMessage._id}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === `/dms/${directMessage._id}`}
+                  >
+                    <Link href={`/dms/${directMessage._id}`}>
+                      <Avatar className="size-6">
+                        <AvatarImage src={directMessage.user.image} />
+                        <AvatarFallback>
+                          {directMessage.user.username[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <p className="font-medium">
+                        {directMessage.user.username}
+                      </p>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
@@ -98,8 +103,11 @@ export function DashboardSidebar() {
                     <p className="font-medium">{user.username}</p>
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem asChild>
+                <DropdownMenuContent align="end" side="top">
+                  <DropdownMenuItem
+                    className="border rounded-md hover:bg-gray-100 p-2"
+                    asChild
+                  >
                     <SignOutButton />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
